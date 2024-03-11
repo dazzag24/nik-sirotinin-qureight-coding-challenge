@@ -5,8 +5,18 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-app.add_middleware(CORSMiddleware, allow_methods=["OPTIONS", "PUT"])
+origins = [
+    # "http://localhost:5173",
+    "*"
+]
 
+app.add_middleware(CORSMiddleware, 
+                    allow_origins=origins,
+                    #allow_methods=["OPTIONS", "PUT"],
+                    allow_credentials=True,
+                    allow_methods=["*"],
+                    allow_headers=["*"]
+                )
 
 @app.put("/isthisacat/")
 async def isthisacat(file: UploadFile):
